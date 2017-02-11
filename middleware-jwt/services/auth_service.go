@@ -1,12 +1,13 @@
 package services
 
 import (
-	"api.jwt.auth/api/parameters"
-	"api.jwt.auth/core/authentication"
-	"api.jwt.auth/services/models"
 	"encoding/json"
-	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/dgrijalva/jwt-go"
+	"middleware-jwt/api/parameters"
+	"middleware-jwt/core/authentication"
+	"middleware-jwt/services/models"
 	"net/http"
+	"github.com/dgrijalva/jwt-go/request"
 )
 
 func Login(requestUser *models.User) (int, []byte) {
@@ -40,7 +41,7 @@ func RefreshToken(requestUser *models.User) []byte {
 
 func Logout(req *http.Request) error {
 	authBackend := authentication.InitJWTAuthenticationBackend()
-	tokenRequest, err := jwt.ParseFromRequest(req, func(token *jwt.Token) (interface{}, error) {
+	tokenRequest, err := request.ParseFromRequest(req, request.OAuth2Extractor, func(token *jwt.Token) (interface{}, error) {
 		return authBackend.PublicKey, nil
 	})
 	if err != nil {

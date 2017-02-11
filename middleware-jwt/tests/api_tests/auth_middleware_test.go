@@ -1,14 +1,14 @@
 package api_tests
 
 import (
-	"api.jwt.auth/core/authentication"
-	"api.jwt.auth/routers"
-	"api.jwt.auth/services"
-	"api.jwt.auth/settings"
 	"fmt"
 	"github.com/codegangsta/negroni"
 	"github.com/stretchr/testify/assert"
 	. "gopkg.in/check.v1"
+	"middleware-jwt/core/authentication"
+	"middleware-jwt/routers"
+	"middleware-jwt/services"
+	"middleware-jwt/settings"
 	"net/http"
 	"net/http/httptest"
 	"os"

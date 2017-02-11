@@ -1,24 +1,19 @@
 package unit_tests
 
 import (
-	"api.jwt.auth/core/authentication"
-	"api.jwt.auth/core/redis"
-	"api.jwt.auth/services/models"
-	"api.jwt.auth/settings"
-	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/stretchr/testify/assert"
 	. "gopkg.in/check.v1"
+	"middleware-jwt/core/authentication"
+	"middleware-jwt/core/redis"
+	"middleware-jwt/services/models"
+	"middleware-jwt/settings"
 	"os"
 	"testing"
 )
 
-func Test(t *testing.T) {
-	TestingT(t)
-}
-
 type AuthenticationBackendTestSuite struct{}
 
-var _ = Suite(&AuthenticationBackendTestSuite{})
 var t *testing.T
 
 func (s *AuthenticationBackendTestSuite) SetUpSuite(c *C) {
@@ -50,8 +45,8 @@ func (suite *AuthenticationBackendTestSuite) TestGenerateToken(c *C) {
 func (suite *AuthenticationBackendTestSuite) TestAuthenticate(c *C) {
 	authBackend := authentication.InitJWTAuthenticationBackend()
 	user := &models.User{
-		Username: "haku",
-		Password: "testing",
+		Username: "root",
+		Password: "12345",
 	}
 	c.Assert(authBackend.Authenticate(user), Equals, true)
 }
@@ -59,7 +54,7 @@ func (suite *AuthenticationBackendTestSuite) TestAuthenticate(c *C) {
 func (suite *AuthenticationBackendTestSuite) TestAuthenticateIncorrectPass(c *C) {
 	authBackend := authentication.InitJWTAuthenticationBackend()
 	user := models.User{
-		Username: "haku",
+		Username: "root",
 		Password: "Password",
 	}
 	c.Assert(authBackend.Authenticate(&user), Equals, false)
@@ -68,8 +63,8 @@ func (suite *AuthenticationBackendTestSuite) TestAuthenticateIncorrectPass(c *C)
 func (suite *AuthenticationBackendTestSuite) TestAuthenticateIncorrectUsername(c *C) {
 	authBackend := authentication.InitJWTAuthenticationBackend()
 	user := &models.User{
-		Username: "Haku",
-		Password: "testing",
+		Username: "Username",
+		Password: "12345",
 	}
 	c.Assert(authBackend.Authenticate(user), Equals, false)
 }

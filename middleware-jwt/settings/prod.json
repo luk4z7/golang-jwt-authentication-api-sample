@@ -1,0 +1,5 @@
+{
+  "PrivateKeyPath": "/go/src/middleware-jwt/settings/keys/private_key",
+  "PublicKeyPath": "/go/src/middleware-jwt/settings/keys/public_key.pub",
+  "JWTExpirationDelta": 72
+}

@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"api.jwt.auth/services"
-	"api.jwt.auth/services/models"
 	"encoding/json"
+	"middleware-jwt/services"
+	"middleware-jwt/services/models"
 	"net/http"
 )
 

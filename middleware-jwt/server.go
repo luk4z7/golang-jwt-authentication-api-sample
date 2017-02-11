@@ -1,16 +1,17 @@
 package main
 
 import (
-	"api.jwt.auth/routers"
-	"api.jwt.auth/settings"
 	"github.com/codegangsta/negroni"
+	"middleware-jwt/routers"
+	"middleware-jwt/settings"
 	"net/http"
 )
 
 func main() {
 	settings.Init()
+	// Get all routes defined
 	router := routers.InitRoutes()
 	n := negroni.Classic()
 	n.UseHandler(router)
-	http.ListenAndServe(":5000", n)
+	http.ListenAndServe(":6060", n)
 }
