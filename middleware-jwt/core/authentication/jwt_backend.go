@@ -2,11 +2,11 @@ package authentication
 
 import (
 	"bufio"
-	"github.com/pborman/uuid"
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/pem"
 	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/pborman/uuid"
 	"golang.org/x/crypto/bcrypt"
 	"middleware-jwt/core/redis"
 	"middleware-jwt/services/models"
@@ -42,7 +42,6 @@ func (backend *JWTAuthenticationBackend) GenerateToken(userUUID string) (string,
 	token := jwt.New(jwt.SigningMethodRS512)
 	claims := token.Claims.(jwt.MapClaims)
 
-
 	claims["exp"] = time.Now().Add(time.Hour * time.Duration(settings.Get().JWTExpirationDelta)).Unix()
 	claims["iat"] = time.Now().Unix()
 	claims["sub"] = userUUID
@@ -57,11 +56,11 @@ func (backend *JWTAuthenticationBackend) GenerateToken(userUUID string) (string,
 }
 
 func (backend *JWTAuthenticationBackend) Authenticate(user *models.User) bool {
-	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte("testing"), 10)
+	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte("12345"), 10)
 
 	testUser := models.User{
 		UUID:     uuid.New(),
-		Username: "haku",
+		Username: "root",
 		Password: string(hashedPassword),
 	}
 
