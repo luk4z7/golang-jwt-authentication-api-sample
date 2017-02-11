@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  api:
+    container_name: api
+    build: ./docker/golang
+    volumes:
+     - ./:/go/src/
+    ports:
+     - "127.0.0.1:6060:6060"
+    depends_on:
+     - redis
+  redis:
+   container_name: redis
+   image: redis
+   ports:
+    - "127.0.0.1:6379:6379"
